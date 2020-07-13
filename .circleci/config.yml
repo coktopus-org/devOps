@@ -29,12 +29,12 @@ jobs:
     machine: true
     steps:
       - checkout
-      # - gcr/gcr-auth
+      - gcr/gcr-auth
       - gcr/build-image:
-          image: coktopus/health-care-server
+          image: circle-gke
           tag: "v2" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
-          image: coktopus/health-care-server
+          image: circle-gke
           tag: "v2" #Change version number e.g to 'v3' when updating application
     
   deploy:
