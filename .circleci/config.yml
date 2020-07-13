@@ -55,8 +55,8 @@ workflows:
     jobs:
       # - build
       - Build-Push-Image-Docker:
-          requires:
-            # - build
+          # requires:
+          #   - build
       - deploy:
           requires:
             - Build-Push-Image-Docker
