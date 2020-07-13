@@ -56,7 +56,7 @@ workflows:
       # - build
       - Build-Push-Image-Docker:
           requires:
-            - build
+            # - build
       - deploy:
           requires:
             - Build-Push-Image-Docker
