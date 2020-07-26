@@ -12,7 +12,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: "cherry-awesome-app"
-fullnameOverride: "cherry-chart"
+fullnameOverride: "cherry-chart-2"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -21,7 +21,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "cherrybomb"
+  name: "cherrybomb-2"
 
 podAnnotations: {}
 
