@@ -1,1 +1,2 @@
-sudo helm upgrade example ./
+#!/bin/bash
+echo "start tiller"
