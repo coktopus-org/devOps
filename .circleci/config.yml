@@ -1,12 +1,16 @@
-version: 2
-
+version: 2.1
 jobs:
-  deploy:
+  Release:
+    docker:
+      - image: node:11.8.0-alpine
+    steps:
       - run:
-          name: Release helloapp using helm chart 
-          command: bash scripts/release.sh
+          name: Release
+          command: |
+            helm upgrade health-care-server ./
+
 workflows:
   version: 2
-  primary:
+  default_job:
     jobs:
-      - deploy:
+      - Release
