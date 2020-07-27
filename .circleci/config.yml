@@ -1,8 +1,8 @@
 version: 2.1
 orbs:
-  node: circleci/node@2.0.2
-  gcp-gke: circleci/gcp-gke@0.1.0
-  gcr: circleci/gcp-gcr@0.0.2
+  node: circleci/node@3.0.1
+  gcp-gke: circleci/gcp-gke@1.0.4
+  gcr: circleci/gcp-gcr@0.7.1
 jobs:
   build:
     description: Install npm
@@ -12,7 +12,7 @@ jobs:
       - checkout
       # Install node
       - node/install
-      # Install npm
+      # Install npmERROR: (gcloud.config.set) 
       - node/install-npm
       # Download and cache dependencies
       - node/with-cache:
@@ -41,22 +41,18 @@ jobs:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
-      # Install `gcloud` and `kubectl` if not already installed.
-      - gcp-gke/install
-      # Initialize the `gcloud` CLI.
-      - gcp-gke/init
-      # Update a deployment Docker image.
-      - gcp-gke/rollout-image:
-          deployment: circle-ci-cluster
-          container: dominic-backend
-          image: gcr.io/circle-ci-demo/circle-gke:v2 # change version when updating
+      - gke/publish-and-rollout-image:
+          cluster: cluster-1
+          container: health-care-server
+          deployment: health-care-server
+          image: gcr.io/health-care-server/health-care-server
+          tag: latest
 workflows:
-  build_update_deploy:
+  main:
     jobs:
-      # - build
-      - Build-Push-Image-Docker
-          # requires:
-          #   - build
-      - deploy:
-          requires:
-            - Build-Push-Image-Docker
+      - gcp-gke/publish-and-rollout-image:
+          cluster: cluster-1
+          container: health-care-server
+          deployment: health-care-server
+          image: gcr.io/health-care-server/health-care-server
+          tag: latest
