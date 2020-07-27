@@ -1,0 +1,1 @@
+sudo helm upgrade example ./
