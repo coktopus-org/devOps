@@ -1,25 +1,49 @@
-version: 2.1
 jobs:
-  Release:
-    docker:
-      - image: node:11.8.0-alpine
+  delete-helm-release:
+    executor: aws-eks/python
+    parameters:
+      cluster-name:
+        description: Cluster name
+        type: string
     steps:
-      - run:
-          name: Install and configuire helm
-          command: apt install curl
-      - run:
-          name: Install and configuire helm
-          command: curl -L https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz | tar xz && sudo mv linux-amd64/helm /bin/helm && sudo rm -rf linux-amd64
-      - run:
-          name: Initialize helm
-          command:  helm init --client-only --kubeconfig=$HOME/.kube/kubeconfig
-      - run:
-          name: Release
-          command: |
-            helm upgrade health-care-server ./
-
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+      - helm/delete-helm-release:
+          helm-version: v2
+          release-name: health-care-service
+          timeout: 600s
+  install-helm-chart:
+    executor: aws-eks/python
+    parameters:
+      cluster-name:
+        description: Cluster name
+        type: string
+    steps:
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+      - helm/install-helm-chart:
+          chart: /
+          helm-version: v2
+          release-name: health-care-service
+orbs:
+  aws-eks: circleci/aws-eks@0.2
+  helm: circleci/helm@1.0
+version: 2.1
 workflows:
-  version: 2
-  default_job:
+  deployment:
     jobs:
-      - Release
+      - aws-eks/create-cluster:
+          cluster-name: test-cluster
+      - install-helm-chart:
+          cluster-name: test-cluster
+          requires:
+            - aws-eks/create-cluster
+      - delete-helm-release:
+          cluster-name: test-cluster
+          requires:
+            - install-helm-chart
+      - aws-eks/delete-cluster:
+          cluster-name: test-cluster
+          requires:
+            - delete-helm-release
+          wait: true
