@@ -1,49 +1,56 @@
-jobs:
-  delete-helm-release:
-    executor: aws-eks/python
-    parameters:
-      cluster-name:
-        description: Cluster name
-        type: string
-    steps:
-      - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: << parameters.cluster-name >>
-      - helm/delete-helm-release:
-          helm-version: v2
-          release-name: health-care-service
-          timeout: 600s
-  install-helm-chart:
-    executor: aws-eks/python
-    parameters:
-      cluster-name:
-        description: Cluster name
-        type: string
-    steps:
-      - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: << parameters.cluster-name >>
-      - helm/install-helm-chart:
-          chart: /
-          helm-version: v2
-          release-name: health-care-service
-orbs:
-  aws-eks: circleci/aws-eks@0.2
-  helm: circleci/helm@1.0
 version: 2.1
+orbs:
+  node: circleci/node@1.0.1
+  gcp-gke: circleci/gcp-gke@0.1.0
+  gcr: circleci/gcp-gcr@0.0.2
+jobs:
+  build:
+    description: Install npm
+    # machine option runs your jobs in a dedicated, ephemeral VM that has the following specifications:
+    machine: true
+    steps:
+      - checkout
+      # Install node
+      - node/install
+      # Install npm
+      - node/install-npm
+      # Download and cache dependencies
+      - node/with-cache:
+          steps:
+            - run:
+                name: Install application dependencies
+                command: npm install
+          # Save cache
+          cache-key: package.json
+          # Ignore non-checksum cache hits
+          use-strict-cache: true
+  Build-Push-Image-Docker:
+    description: Build and push image to Google Container Registry
+    machine: true
+    steps:
+      - checkout
+      - gcr/gcr-auth
+      - gcr/build-image:
+          image: circle-gke
+          tag: "v2" #Change version number e.g to 'v3' when updating application
+      - gcr/push-image:
+          image: circle-gke
+          tag: "v2" #Change version number e.g to 'v3' when updating application
+    
+  deploy:
+    description: Deploy application to Google Kubernetes Engine
+    machine: true
+    steps:
+      # Install `gcloud` and `kubectl` if not already installed.
+      - gcp-gke/install
+      # Initialize the `gcloud` CLI.
+      - gcp-gke/init
+      # Update a deployment Docker image.
+      - gcp-gke/rollout-image:
+          deployment: cluster-1
+          container: health-care-server
+          image: gcr.io/health-care-server/health-care-server:latest
 workflows:
-  deployment:
+  build_update_deploy:
     jobs:
-      - aws-eks/create-cluster:
-          cluster-name: test-cluster
-      - install-helm-chart:
-          cluster-name: test-cluster
-          requires:
-            - aws-eks/create-cluster
-      - delete-helm-release:
-          cluster-name: test-cluster
-          requires:
-            - install-helm-chart
-      - aws-eks/delete-cluster:
-          cluster-name: test-cluster
-          requires:
-            - delete-helm-release
-          wait: true
+      - deploy
