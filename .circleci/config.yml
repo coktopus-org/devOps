@@ -51,5 +51,6 @@ jobs:
           container: health-care-server
           image: gcr.io/health-care-server/health-care-server:latest
 workflows:
+  commit:
     jobs:
       - deploy
