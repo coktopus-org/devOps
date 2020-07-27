@@ -41,16 +41,18 @@ jobs:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
-      # Install `gcloud` and `kubectl` if not already installed.
-      - gcp-gke/install
-      # Initialize the `gcloud` CLI.
-      - gcp-gke/init
-      # Update a deployment Docker image.
-      - gcp-gke/rollout-image:
-          deployment: cluster-1
+      - gke/publish-and-rollout-image:
+          cluster: cluster-1
           container: health-care-server
-          image: gcr.io/health-care-server/health-care-server:latest
+          deployment: health-care-server
+          image: gcr.io/health-care-server/health-care-server
+          tag: latest
 workflows:
-  commit:
+  main:
     jobs:
-      - deploy
+      - gcp-gke/publish-and-rollout-image:
+          cluster: cluster-1
+          container: health-care-server
+          deployment: health-care-server
+          image: gcr.io/health-care-server/health-care-server
+          tag: latest
