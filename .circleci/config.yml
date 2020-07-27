@@ -12,7 +12,7 @@ jobs:
       - checkout
       # Install node
       - node/install
-      # Install npm
+      # Install npmERROR: (gcloud.config.set) 
       - node/install-npm
       # Download and cache dependencies
       - node/with-cache:
@@ -35,11 +35,10 @@ jobs:
           tag: "v2" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
           image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          tag: "v2"
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
-    machine: true
     steps:
       - gke/publish-and-rollout-image:
           cluster: cluster-1
