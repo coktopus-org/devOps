@@ -43,7 +43,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
-      - Build-Push-Image-Docker:
-          requires:
-            - build
+      - Build-Push-Image-Docker
