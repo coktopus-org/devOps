@@ -51,7 +51,7 @@ jobs:
           cluster: cluster-1
           container: health-care-server
           deployment: health-care-server
-          image: health-care-server
+          image: gcr.io/health-care-server/health-care-server
           tag: latest
 workflows:
   main:
