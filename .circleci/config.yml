@@ -13,7 +13,7 @@ jobs:
       - run:
           name: test
           command: |
-            source ./setup-ssenv.sh
+            source ./setup-env.sh
             echo "This is pipeline ID($X)xxxxxx"
 
   deploy:
