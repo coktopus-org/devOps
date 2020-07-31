@@ -5,6 +5,22 @@ orbs:
   gcr: circleci/gcp-gcr@0.7.1
   helm: circleci/helm@1.0.0
 jobs:
+  build:
+    description: Deploy application to Google Kubernetes Engine
+    machine: true
+    steps: # a collection of executable commands making up the 'build' job
+      - checkout # pulls source code to the working directory
+      - restore_cache: # **restores saved dependency cache if the Branch key template or requirements.txt files have not changed since the previous run**
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run: # install and activate virtual environment with pip
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - save_cache: # ** special step to save dependency cache **
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
   test:
     description: Deploy application to Google Kubernetes Engine
     machine: true
@@ -28,7 +44,7 @@ jobs:
       - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
-          cluster: ${$(grep CLUSTER setup-env.sh | awk -F'=' '{print $2}')}
+          cluster: $(grep CLUSTER setup-env.sh | awk -F'=' '{print $2}')
           container: health-care-server
           deployment: health-care-server
           image: gcr.io/project-1-284510/health-care-server
@@ -36,5 +52,6 @@ jobs:
 workflows:
   main:
     jobs:
+      - build
       - test
       - deploy
