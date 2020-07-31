@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: coktopus/health-care-server
+  repository: gcr.io/project-1-284510/health-care-server
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "3464546d9baab6798cdfd1bef1d256f4b68c6bd7"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: "health-care-server"
