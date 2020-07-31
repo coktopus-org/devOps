@@ -44,7 +44,7 @@ jobs:
       - run:
           name: test
           command: |
-            export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')" >> $BASH_ENV
+            echo 'export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"' >> $BASH_ENV
             echo "This is pipeline ID($A)($HELLO)xxxxxx"
       - run:
           name: aa
