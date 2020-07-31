@@ -36,11 +36,11 @@ jobs:
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
-          container: nginx-1
+          container: test
           deployment: health-care-server
           image: gcr.io/health-care-server/health-care-server
           tag: latest
 workflows:
   main:
     jobs:
-      - Build-Push-Image-Docker
+      - deploy
