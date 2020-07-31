@@ -6,15 +6,18 @@ orbs:
   helm: circleci/helm@1.0.0
 jobs:
   build: 
-    description: Deploy application to Google Kubernetes Engine
-    machine: true
+    docker: # use the Docker executor
+      # CircleCI node images available at: https://hub.docker.com/r/circleci/node/
+      - image: circleci/node:10.0-browsers
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
       # Run a step to setup an environment variable
       # Redirect MY_ENV_VAR into $BASH_ENV
       - run: 
           name: "Setup custom environment variables"
-          command: echo 'export MY_ENV_VAR="$(grep CLUSTER setup-env.sh | awk -F'=' '{print $2}')"' >> $BASH_ENV
+          command: |
+            export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
+            echo 'export MY_ENV_VAR={$A}' >> $BASH_ENV
       - run: # print the name of the branch we're on
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
@@ -44,7 +47,7 @@ jobs:
       - run:
           name: test
           command: |
-            echo 'export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"' >> $BASH_ENV
+            export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
             echo "This is pipeline ID($A)($HELLO)xxxxxx"
       - run:
           name: aa
@@ -68,5 +71,5 @@ workflows:
   main:
     jobs:
       - build
-      - test
+      # - test
       # - deploy
