@@ -41,7 +41,7 @@ jobs:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
-      - gke/publish-and-rollout-image:
+      - gke/rollout-image:
           cluster: cluster-1
           container: health-care-server
           deployment: health-care-server
