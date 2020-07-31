@@ -17,7 +17,8 @@ jobs:
       - run:
           name: test
           command: |
-            echo "This is pipeline ID($X)($tag)xxxxxx"
+            A = "$(grep X setup-env.sh)"
+            echo "This is pipeline ID($A)($tag)xxxxxx"
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
