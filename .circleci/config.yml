@@ -17,7 +17,8 @@ jobs:
       - run:
           name: test
           command: |
-            echo "This is pipeline ID($(grep X setup-env.sh | awk -F'=' '{print $2}'))($X)xxxxxx"
+            A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
+            echo "This is pipeline ID $(grep X setup-env.sh | awk -F'=' '{print $2}')($X)xxxxxx"
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
