@@ -70,5 +70,5 @@ workflows:
   main:
     jobs:
       - build
-      # - test
+      - test
       # - deploy
