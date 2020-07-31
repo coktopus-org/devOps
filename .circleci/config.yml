@@ -34,18 +34,17 @@ jobs:
       - gcp-gke/init
       - k8s/install-kubectl
       - gcr/build-image:
-          image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          image: health-care-server
+          tag: "latest" #Change version number e.g to 'v3' when updating application
       - gcr/push-image:
-          image: circle-gke
-          tag: "v2" #Change version number e.g to 'v3' when updating application
+          image: health-care-server
+          tag: "latest" #Change version number e.g to 'v3' when updating application
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
       - checkout
-      - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
@@ -56,4 +55,7 @@ jobs:
 workflows:
   main:
     jobs:
-      - deploy
+      - build
+      - Build-Push-Image-Docker:
+          requires:
+            - build
