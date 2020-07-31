@@ -3,31 +3,19 @@ orbs:
   node: circleci/node@3.0.1
   gcp-gke: circleci/gcp-gke@1.1.0
   gcr: circleci/gcp-gcr@0.7.1
+  helm: circleci/helm@1.0.0
 jobs:
-  build:
-    description: Install npm
-    # machine option runs your jobs in a dedicated, ephemeral VM that has the following specifications:
+  test:
+    description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
-      - checkout
-      # Install node
-      - node/install
-      # Install npmERROR: (gcloud.config.set) 
-      - node/install-npm
-      # Download and cache dependencies
-  Build-Push-Image-Docker:
-    description: Build and push image to Google Container Registry
-    machine: true
-    steps:
-      - checkout
-      - gcr/gcr-auth
-      - gcr/build-image:
-          image: health-care-server
-          tag: "latest" #Change version number e.g to 'v3' when updating application
-      - gcr/push-image:
-          image: health-care-server
-          tag: "latest" #Change version number e.g to 'v3' when updating application
-    
+      - checkout # check out the code in the project directory
+      - run:
+          name: test
+          command: |
+            source ./setup-env.sh
+            echo "This is pipeline ID($X)xxxxxx"
+
   deploy:
     description: Deploy application to Google Kubernetes Engine
     machine: true
@@ -44,4 +32,5 @@ jobs:
 workflows:
   main:
     jobs:
+      - test
       - deploy
