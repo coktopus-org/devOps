@@ -8,7 +8,7 @@ image:
   repository: coktopus/health-care-server
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "899abb31a75e6eb89518b7646632eb79ed8f58ac"
 
 imagePullSecrets: []
 nameOverride: "health-care-server"
