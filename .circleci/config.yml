@@ -10,15 +10,15 @@ jobs:
     machine: true
     steps:
       - checkout # check out the code in the project directory
-      - save_cache:
-          key: my-cache
-          paths:
-            - ./setup-env.sh
       - run:
           name: test
           command: |
-            A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
-            echo "This is pipeline ID $(grep X setup-env.sh | awk -F'=' '{print $2}')($X)xxxxxx"
+            export A="$(grep X setup-env.sh | awk -F"'=' '{print $2}')"
+            echo "This is pipeline ID($A)($X)xxxxxx"
+      - run:
+          name: aa
+          command: |
+            echo "This is pipeline ID($A)($X)xxxxxx"
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
