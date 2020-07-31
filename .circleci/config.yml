@@ -10,6 +10,10 @@ jobs:
     machine: true
     steps:
       - checkout # check out the code in the project directory
+      - save_cache:
+          key: asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.HELLO }}
+          paths:
+            - ./setup-env.sh
       - run:
           name: test
           command: |
@@ -28,7 +32,7 @@ jobs:
       - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
-          cluster: {{"$(grep CLUSTER setup-env.sh | awk -F'=' '{print $2}')"}}
+          cluster: "$(grep CLUSTER setup-env.sh | awk -F'=' '{print $2}')"
           container: health-care-server
           deployment: health-care-server
           image: gcr.io/project-1-284510/health-care-server
