@@ -13,13 +13,12 @@ jobs:
       - run:
           name: test
           command: |
-            A="$(grep X setup-env.sh | awk -F"'=' '{print $2}')"
-            export P = "{$A}"
+            export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
             echo "This is pipeline ID($A)($X)xxxxxx"
       - run:
           name: aa
           command: |
-            echo "This is pipeline ID($P)($X)xxxxxx"
+            echo "This is pipeline ID($A)($X)xxxxxx"
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
