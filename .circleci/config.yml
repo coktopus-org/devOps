@@ -18,7 +18,7 @@ jobs:
           name: test
           command: |
             export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
-            echo "This is pipeline ID($A)($X)xxxxxx"
+            echo "This is pipeline ID($A)($HELLO)xxxxxx"
       - run:
           name: aa
           command: |
