@@ -5,7 +5,7 @@ orbs:
   gcr: circleci/gcp-gcr@0.7.1
   helm: circleci/helm@1.0.0
 jobs:
-  build: 
+  build:
     docker: # use the Docker executor
       # CircleCI node images available at: https://hub.docker.com/r/circleci/node/
       - image: circleci/node:10.0-browsers
@@ -15,10 +15,7 @@ jobs:
       # Redirect MY_ENV_VAR into $BASH_ENV
       - run: 
           name: "Setup custom environment variables"
-          command: |
-            export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
-            echo "This is pipeline ID $A xxxxxx"
-            echo 'export MY_ENV_VAR=$A' >> $BASH_ENV
+          command: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
       - run: # print the name of the branch we're on
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
@@ -48,6 +45,7 @@ jobs:
       - run:
           name: test
           command: |
+            setup-env.sh
             export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
             echo "This is pipeline ID($A)($HELLO)xxxxxx"
       - run:
