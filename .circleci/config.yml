@@ -48,7 +48,7 @@ jobs:
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
-          container: health-care-server
+          container: gcr.io
           deployment: health-care-server
           image: health-care-server
           tag: latest
