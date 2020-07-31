@@ -10,10 +10,13 @@ jobs:
     machine: true
     steps:
       - checkout # check out the code in the project directory
+      - save_cache:
+          key: my-cache
+          paths:
+            - ./setup-env.sh
       - run:
           name: test
           command: |
-            source ./setup-env.sh
             echo "This is pipeline ID($X)($tag)xxxxxx"
 
   deploy:
