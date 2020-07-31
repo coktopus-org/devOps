@@ -21,9 +21,6 @@ jobs:
     steps:
       - checkout
       - gcr/gcr-auth
-      - gcloud/install
-      - gcp-gke/init
-      - k8s/install-kubectl
       - gcr/build-image:
           image: health-care-server
           tag: "latest" #Change version number e.g to 'v3' when updating application
