@@ -33,6 +33,7 @@ jobs:
     machine: true
     steps:
       - checkout
+      - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
@@ -43,4 +44,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - deploy
+      - Build-Push-Image-Docker
