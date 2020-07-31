@@ -40,7 +40,7 @@ jobs:
           container: test
           deployment: health-care-server
           image: gcr.io/health-care-server/health-care-server
-          tag: latest
+          tag: 899abb31a75e6eb89518b7646632eb79ed8f58ac
 workflows:
   main:
     jobs:
