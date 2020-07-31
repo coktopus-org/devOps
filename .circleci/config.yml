@@ -39,7 +39,6 @@ jobs:
     
   deploy:
     description: Deploy application to Google Kubernetes Engine
-    machine: true
     steps:
       - gcp-gke/rollout-image:
           cluster: cluster-1
