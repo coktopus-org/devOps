@@ -50,7 +50,7 @@ jobs:
 workflows:
   main:
     jobs:
-      - gcp-gke/publish-and-rollout-image:
+      - gcp-gke/rollout-image:
           cluster: cluster-1
           container: health-care-server
           deployment: health-care-server
