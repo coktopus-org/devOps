@@ -39,8 +39,8 @@ jobs:
           cluster: cluster-1
           container: test
           deployment: health-care-server
-          image: gcr.io/health-care-server/health-care-server
-          tag: 899abb31a75e6eb89518b7646632eb79ed8f58ac
+          image: gcr.io/health-care-server
+          tag: 3464546d9baab6798cdfd1bef1d256f4b68c6bd7
 workflows:
   main:
     jobs:
