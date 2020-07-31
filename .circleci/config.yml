@@ -44,9 +44,8 @@ jobs:
     machine: true
     steps:
       - checkout
-      - gcloud/install
-      - k8s/install-kubectl
       - gcr/gcr-auth
+      - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
           container: health-care-server
