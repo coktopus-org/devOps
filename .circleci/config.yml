@@ -17,7 +17,7 @@ jobs:
           name: "Setup custom environment variables"
           command: |
             export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
-            echo 'export MY_ENV_VAR={$A}' >> $BASH_ENV
+            echo 'export MY_ENV_VAR=${A}' >> $BASH_ENV
       - run: # print the name of the branch we're on
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
