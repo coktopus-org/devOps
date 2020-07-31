@@ -31,6 +31,7 @@ jobs:
       - checkout
       - gcr/gcr-auth
       - gcloud/install
+      - gcp-gke/init
       - k8s/install-kubectl
       - gcr/build-image:
           image: circle-gke
@@ -48,7 +49,7 @@ jobs:
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
-          container: health-care-server-7fb74f77dc-sj2w8
+          container: health-care-server
           deployment: health-care-server
           image: health-care-server
           tag: latest
