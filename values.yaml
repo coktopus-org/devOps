@@ -11,8 +11,8 @@ image:
   tag: "latest"
 
 imagePullSecrets: []
-nameOverride: "health-care-server"
-fullnameOverride: "health-care-server"
+nameOverride: "health-care-server-prod"
+fullnameOverride: "health-care-server-prod"
 
 containerPort: 3001
 readinessProbe: /api/test
