@@ -16,6 +16,7 @@ jobs:
           cluster: cluster-1
           container: health-care-server-prod
           deployment: health-care-server-prod
+          namespace: health-care-server-prod
           image: gcr.io/project-1-284510/health-care-server
           tag: fc4994642ecdb55f5e31127012944b4eb2668511
 workflows:
