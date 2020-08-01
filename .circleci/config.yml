@@ -18,7 +18,7 @@ jobs:
           deployment: health-care-server
           image: gcr.io/project-1-284510/health-care-server
           tag: 3464546d9baab6798cdfd1bef1d256f4b68c6bd7
-      - helm/upgrade-helm-chart
+      - helm/upgrade-helm-chart:
           helm-version: v3.0.0
 workflows:
   main:
