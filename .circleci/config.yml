@@ -15,7 +15,7 @@ jobs:
       # Redirect MY_ENV_VAR into $BASH_ENV
       - run: 
           name: "Setup custom environment variables"
-          command: echo ./setup-env.spec >> $BASH_ENV
+          command: echo MY_ENV_VAR="FOO" >> $BASH_ENV
       - run: # print the name of the branch we're on
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
@@ -52,6 +52,8 @@ jobs:
       - run:
           name: other
           command: |
+            set -x
+            env
             echo "This is pipeline ID($A)($HOMEE)-----"
 
   deploy:
