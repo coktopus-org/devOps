@@ -20,6 +20,8 @@ jobs:
           tag: 3464546d9baab6798cdfd1bef1d256f4b68c6bd7
       - helm/upgrade-helm-chart:
           helm-version: v3.0.0
+          release-name: health-care-server
+          chart: health-care-server-0.1.0 
 workflows:
   main:
     jobs:
