@@ -47,7 +47,7 @@ jobs:
           command: echo MY_ENV_VAR_2="ssssss" >> $BASH_ENV
       - run:
           name: other
-          command: echo ${MY_ENV_VAR} ${MY_ENV_VAR_2}
+          command: echo ---- ${MY_ENV_VAR} xx---- ${MY_ENV_VAR_2}-----
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
