@@ -41,12 +41,12 @@ jobs:
       - save_cache:
           key: asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.HELLO }}
           paths:
-            - ./setup-env.sh
+            - ./setup-env.spec
       - run:
           name: test
           command: |
-            sudo ./setup-env.sh
-            export A="$(grep X setup-env.sh | awk -F'=' '{print $2}')"
+            sudo ./setup-env.spec
+            export A="$(grep X setup-env.spec | awk -F'=' '{print $2}')"
             echo "This is pipeline ID($A)($HELLO)xxxxxx"
       - run:
           name: aa
@@ -61,7 +61,7 @@ jobs:
       - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
-          cluster: "$(grep CLUSTER setup-env.sh | awk -F'=' '{print $2}')"
+          cluster: "$(grep CLUSTER setup-env.spec | awk -F'=' '{print $2}')"
           container: health-care-server
           deployment: health-care-server
           image: gcr.io/project-1-284510/health-care-server
