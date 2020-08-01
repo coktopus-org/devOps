@@ -15,7 +15,7 @@ jobs:
       # Redirect MY_ENV_VAR into $BASH_ENV
       - run: 
           name: "Setup custom environment variables"
-          command: echo MY_ENV_VAR="FOO" >> $BASH_ENV
+          command: echo MY_ENV_VAR="ssssss" >> $BASH_ENV
       - run: # print the name of the branch we're on
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
