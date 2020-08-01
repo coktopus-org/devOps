@@ -21,7 +21,7 @@ jobs:
       - helm/upgrade-helm-chart:
           helm-version: v3.0.0
           release-name: health-care-server
-          chart: health-care-server-0.1.0 
+          chart: health-care-server
 workflows:
   main:
     jobs:
