@@ -22,3 +22,7 @@ workflows:
   main:
     jobs:
       - deploy
+          filters:
+          branches:
+            only: 
+              [capestone]
