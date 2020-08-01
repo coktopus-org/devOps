@@ -47,7 +47,7 @@ jobs:
           command: |
             set -x
             env
-            export HOME = "My Home"
+            export HOME="My Home"
             export A="$(grep X setup-env.spec | awk -F'=' '{print $2}')"
       - run:
           name: other
