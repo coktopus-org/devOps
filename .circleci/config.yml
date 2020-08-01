@@ -6,7 +6,7 @@ orbs:
   helm: circleci/helm@1.0.0
 jobs:
   deploy:
-    description: Deploy application to Google Kubernetes
+    description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
       - checkout
