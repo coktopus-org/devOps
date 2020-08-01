@@ -13,7 +13,7 @@ jobs:
       - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
-          cluster: cluster-1
+          cluster: cluster-capestone-prod
           container: health-care-server
           deployment: health-care-server
           image: gcr.io/project-1-284510/health-care-server
