@@ -14,11 +14,17 @@ jobs:
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
-          container: health-care-server
+          container: health-care-server-prod
           deployment: health-care-server-prod
           image: gcr.io/project-1-284510/health-care-server
-          tag: 3464546d9baab6798cdfd1bef1d256f4b68c6bd7
+          tag: fc4994642ecdb55f5e31127012944b4eb2668511
 workflows:
   main:
     jobs:
-      - deploy
+      - deploy:
+          filters:
+            branches:
+              only: 
+                [capestone-prod]
+
+
