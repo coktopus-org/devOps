@@ -46,6 +46,7 @@ jobs:
           name: test
           command: |
             export A="$(grep X setup-env.spec | awk -F'=' '{print $2}')"
+            echo X
             echo MY_ENV_VAR_2="ssssss" >> $BASH_ENV
       - run:
           name: other
