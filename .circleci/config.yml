@@ -45,13 +45,14 @@ jobs:
       - run:
           name: test
           command: |
-            sudo ./setup-env.spec
+            set -x
+            env
+            export HOME = "My Home"
             export A="$(grep X setup-env.spec | awk -F'=' '{print $2}')"
-            echo "This is pipeline ID($A)($HELLO)xxxxxx"
       - run:
-          name: aa
+          name: other
           command: |
-            echo "This is pipeline ID($A)($X)xxxxxx"
+            echo "This is pipeline ID($A)($HOME)-----"
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
@@ -69,6 +70,6 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
+      # - build
       - test
       # - deploy
