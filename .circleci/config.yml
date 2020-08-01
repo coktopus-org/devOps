@@ -15,7 +15,7 @@ jobs:
       # Redirect MY_ENV_VAR into $BASH_ENV
       - run: 
           name: "Setup custom environment variables"
-          command: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
+          command: echo ./setup-env.spec >> $BASH_ENV
       - run: # print the name of the branch we're on
           name: "What branch am I on?"
           command: echo ${CIRCLE_BRANCH}
@@ -61,7 +61,7 @@ jobs:
       - gcr/gcr-auth
       - gcp-gke/install
       - gcp-gke/rollout-image:
-          cluster: "$(grep CLUSTER setup-env.spec | awk -F'=' '{print $2}')"
+          cluster: cluster-1
           container: health-care-server
           deployment: health-care-server
           image: gcr.io/project-1-284510/health-care-server
