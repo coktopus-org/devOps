@@ -44,17 +44,10 @@ jobs:
             - ./setup-env.spec
       - run:
           name: test
-          command: |
-            set -x
-            env
-            export HOMEE="My Home" >> $BASH_ENV
-            export A="$(grep X setup-env.spec | awk -F'=' '{print $2}')"
+          command: echo MY_ENV_VAR_2="ssssss" >> $BASH_ENV
       - run:
           name: other
-          command: |
-            set -x
-            env
-            echo "This is pipeline ID($A)($HOMEE)-----"
+          command: echo ${MY_ENV_VAR} ${MY_ENV_VAR_2}
 
   deploy:
     description: Deploy application to Google Kubernetes Engine
