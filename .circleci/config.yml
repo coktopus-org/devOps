@@ -18,7 +18,7 @@ jobs:
           deployment: health-care-server-prod
           namespace: health-care-server-prod
           image: gcr.io/project-1-284510/health-care-server
-          tag: fc4994642ecdb55f5e31127012944b4eb2668511
+          tag: 33f57e1aba78f687fd56ebbc6a527f2b9b7332cd
 workflows:
   main:
     jobs:
