@@ -26,4 +26,4 @@ workflows:
           filters:
             branches:
               only: 
-                [project-for-video-dev]
+                [project-for-video-prod]
