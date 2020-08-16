@@ -14,10 +14,10 @@ jobs:
       - gcp-gke/install
       - gcp-gke/rollout-image:
           cluster: cluster-1
-          container: health-care-server
-          deployment: health-care-server
-          namespace: health-care-server
-          image: gcr.io/project-1-284510/health-care-server
+          container: project-for-video
+          deployment: project-for-video
+          namespace: project-for-video
+          image: gcr.io/project-for-video/project-for-video
           tag: latest
 workflows:
   main:
@@ -26,4 +26,4 @@ workflows:
           filters:
             branches:
               only: 
-                [capestone]
+                [project-for-video-dev]
