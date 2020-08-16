@@ -16,7 +16,7 @@ jobs:
           cluster: cluster-1
           container: project-for-video
           deployment: project-for-video
-          namespace: project-for-video
+          namespace: pfv-env-prod
           image: gcr.io/project-for-video/project-for-video
           tag: latest
 workflows:
