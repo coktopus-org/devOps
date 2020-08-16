@@ -15,7 +15,7 @@ jobs:
       - gcp-gke/rollout-image:
           cluster: cluster-1
           container: project-for-video
-          deployment: project-for-video
+          deployment: project-for-video-prod
           namespace: pfv-env-prod
           image: gcr.io/project-for-video/project-for-video
           tag: latest
