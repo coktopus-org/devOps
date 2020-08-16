@@ -18,7 +18,7 @@ jobs:
           deployment: project-for-video
           namespace: project-for-video
           image: gcr.io/project-for-video/project-for-video
-          tag: latest
+          tag: b1c5597fccc26252921058e7b321ec6d601e4353
 workflows:
   main:
     jobs:
