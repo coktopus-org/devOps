@@ -14,7 +14,7 @@ imagePullSecrets: []
 nameOverride: "project-for-video-dev"
 fullnameOverride: "project-for-video-dev"
 
-containerPort: 3001
+containerPort: 3100
 readinessProbe: /
 livenessProbe: /
 
@@ -43,7 +43,7 @@ securityContext: {}
 service:
   type: LoadBalancer
   port: 80
-  targetPort: 3100
+  targetPort: 3001
   nodePort: 30001
 
 ingress:
