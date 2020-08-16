@@ -44,7 +44,7 @@ service:
   type: LoadBalancer
   port: 80
   targetPort: 3100
-  nodePort: 30001
+  nodePort: 30002
 
 ingress:
   enabled: false
